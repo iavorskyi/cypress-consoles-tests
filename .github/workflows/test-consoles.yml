@@ -2,7 +2,7 @@ name: Cypress Tests
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Run every 15 min
+    - cron: '*/10 * * * *'  # Run every 15 min
 
 jobs:
   build-and-test:
