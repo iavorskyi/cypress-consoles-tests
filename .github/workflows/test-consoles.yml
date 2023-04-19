@@ -21,11 +21,11 @@ steps:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          working-directory: packages/tests
+          working-directory: ./
           install: false
           browser: chrome
           headless: true
-          wait-on: "http://local.ventuscloud.eu" # http intended
+          wait-on: "http://dev.ventuscloud.eu" # http intended
           wait-on-timeout: 120
         env:
           CYPRESS_BASE_URL: https://dev.ventuscloud.eu
