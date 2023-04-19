@@ -5,27 +5,21 @@ on:
     - cron: '*/15 * * * *'  # Run every 15 min
 
 jobs:
-  cypress-tests:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Install dependencies
-        run: |
-          npm ci
-      - name: Lint
-        run: |
-          cd packages/tests
-          npm run lint
-      - name: Cypress run
+        run: npm install
+
+      - name: Run tests
         uses: cypress-io/github-action@v2
         with:
-          working-directory: ./
-          install: false
-          browser: chrome
-          headless: true
-          wait-on: "http://dev.ventuscloud.eu" # http intended
-          wait-on-timeout: 120
+          record: true
+          start: npm start
         env:
           CYPRESS_BASE_URL: https://dev.ventuscloud.eu
           CYPRESS_KEYCLOAK_URL: https://dev1-upper-austria.ventuscloud.eu:9443
