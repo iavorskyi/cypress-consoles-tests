@@ -19,7 +19,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           record: true
-          start: npm start
+          start: npx cypress run
         env:
           CYPRESS_BASE_URL: https://dev.ventuscloud.eu
           CYPRESS_KEYCLOAK_URL: https://dev1-upper-austria.ventuscloud.eu:9443
