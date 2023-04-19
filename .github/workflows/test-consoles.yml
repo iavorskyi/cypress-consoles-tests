@@ -8,12 +8,31 @@ jobs:
   cypress-tests:
     runs-on: ubuntu-latest
 
-    steps:
+steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
       - name: Install dependencies
-        run: npm install
-
-      - name: Start Cypress tests
-        run: npm run cypress:run
+        run: |
+          npm ci
+      - name: Lint
+        run: |
+          cd packages/tests
+          npm run lint
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          working-directory: packages/tests
+          install: false
+          browser: chrome
+          headless: true
+          wait-on: "http://local.ventuscloud.eu" # http intended
+          wait-on-timeout: 120
+        env:
+          CYPRESS_BASE_URL: https://dev.ventuscloud.eu
+          CYPRESS_KEYCLOAK_URL: https://dev1-upper-austria.ventuscloud.eu:9443
+          CYPRESS_KEYCLOAK_REALM: ventus
+          CYPRESS_KEYCLOAK_CLIENT_ID: ventus
+          CYPRESS_KEYCLOAK_REDIRECT_URI: https://dev.ventuscloud.eu
+          CYPRESS_TEST_USERNAME: qa43test@gmail.com
+          CYPRESS_TEST_PASSWORD: a72-pt7!SEC4=r97
+          CYPRESS_TEST_PROJECT_REGION: Upper-Austria-Dev-2
